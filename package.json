@@ -1,0 +1,33 @@
+{
+  "name": "postcss-generate-ts-hash",
+  "version": "0.0.0",
+  "description": "PostCSS plugin that generate a TypeScript hash of all classes with comments",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "typescript"
+  ],
+  "author": "Mohsen Azimi <mazimi@lyft.com>",
+  "license": "MIT",
+  "repository": "mohsen1/postcss-generate-ts-hash",
+  "bugs": {
+    "url": "https://github.com/mohsen1/postcss-generate-ts-hash/issues"
+  },
+  "homepage": "https://github.com/mohsen1/postcss-generate-ts-hash",
+  "dependencies": {
+    "lodash": "^4.16.4",
+    "postcss": "^5.2.0"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "eslint": "^3.4.0",
+    "eslint-config-postcss": "^2.0.2"
+  },
+  "scripts": {
+    "test": "ava && eslint *.js"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-postcss/es5"
+  }
+}
