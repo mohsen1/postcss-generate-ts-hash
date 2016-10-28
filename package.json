@@ -1,6 +1,6 @@
 {
   "name": "postcss-generate-ts-hash",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "PostCSS plugin that generate a TypeScript hash of all classes with comments",
   "keywords": [
     "postcss",
