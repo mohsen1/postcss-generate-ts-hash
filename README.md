@@ -1,27 +1,41 @@
-# PostCSS Generate Ts Hash [![Build Status][ci-img]][ci]
+# PostCSS Generate TypeScript Hash
 
 [PostCSS] plugin that generate a TypeScript hash of all classes with comments.
 
-[PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/mohsen1/postcss-generate-ts-hash.svg
-[ci]:      https://travis-ci.org/mohsen1/postcss-generate-ts-hash
 
+Given CSS code like this
 ```css
 .foo {
-    /* Input example */
+    font-size: big;
+}
+.bar-baz {
+    color: hotpink;
 }
 ```
 
-```css
-.foo {
-  /* Output example */
+this plugin generate a TypeScript code like this:
+
+```ts
+export const classes = {
+    /** .foo */
+    foo: 'foo',
+    /** .bar-baz */
+    barBaz: 'bar-baz',
 }
+```
+
+That can be used in you DOM related code:
+
+```ts
+import {classes} from './classes';
+const div = document.createElement('div');
+div.className = classes.foo;
 ```
 
 ## Usage
 
 ```js
-postcss([ require('postcss-generate-ts-hash') ])
+postcss([ require('postcss-generate-ts-hash')(done: function(tsFileString) { /* save it to a file... */ }) ])
 ```
 
 See [PostCSS] docs for examples for your environment.
