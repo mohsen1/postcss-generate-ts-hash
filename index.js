@@ -27,11 +27,20 @@ module.exports = postcss.plugin('postcss-generate-ts-hash', function (opts) {
             }
         });
 
-        var inHash = _.uniq(classes).map(function (className) {
-            return opts.indentation + '/** .' + className  + ' */\n' +
-                    opts.indentation + _.camelCase(className) + ': \'' + className + '\',\n';
-        });
 
-        opts.done('export const classes = {\n' + inHash.join('') + '};\n');
+        if (opts.exportEach) {
+            var inHash = _.uniq(classes).map(function (className) {
+                return '/** .' + className  + ' */\n' +
+                        'export const ' + _.camelCase(className) + ' = \'' + className + '\';\n';
+            });
+            opts.done('export const classes = {\n' + inHash.join('') + '};\n');
+        } else {
+            var inHash = _.uniq(classes).map(function (className) {
+                return opts.indentation + '/** .' + className  + ' */\n' +
+                        opts.indentation + _.camelCase(className) + ': \'' + className + '\',\n';
+            });
+            opts.done(inHash.join(''));
+        }
+
     };
 });

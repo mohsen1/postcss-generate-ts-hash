@@ -38,4 +38,14 @@ div.className = classes.foo;
 postcss([ require('postcss-generate-ts-hash')(done: function(tsFileString) { /* save it to a file... */ }) ])
 ```
 
+
+### Options
+Pass `exportEach` to options to have output like this:
+
+```ts
+/** .foo */
+export const foo = 'foo';
+/** .bar-baz */
+export const barBaz = 'bar-baz';
+```
 See [PostCSS] docs for examples for your environment.
