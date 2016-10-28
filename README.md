@@ -35,11 +35,14 @@ div.className = classes.foo;
 ## Usage
 
 ```js
-postcss([ require('postcss-generate-ts-hash')(done: function(tsFileString) { /* save it to a file... */ }) ])
+postcss([ require('postcss-generate-ts-hash')({done: function(tsFileString) { /* save it to a file... */ })}])
 ```
 
 
 ### Options
+Pass `done` to get the result in the callback
+
+
 Pass `exportEach` to options to have output like this:
 
 ```ts
