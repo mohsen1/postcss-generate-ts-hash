@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var postcss = require('postcss');
+var parser = require('postcss-selector-parser');
 
 module.exports = postcss.plugin('postcss-generate-ts-hash', function (opts) {
     opts = _.defaults(opts || {}, {
@@ -15,15 +16,22 @@ module.exports = postcss.plugin('postcss-generate-ts-hash', function (opts) {
 
         root.walk(node => {
             if (node.type === 'rule') {
-                classes.push(node.selector);
+                parser(function(selectors) {
+                    selectors.walk(function (selector) {
+                        if (selector.type === 'class') {
+                            classes.push(selector.value);
+                        }
+                    })
+
+                }).process(node.selector).result;
             }
         });
 
         var inHash = classes.map(function (className) {
-            return opts.indentation + '/** ' + className  + ' */\n' +
-                    opts.indentation + _.camelCase(className) + ': ' + className.replace(/^\./, '') + ',\n';
+            return opts.indentation + '/** .' + className  + ' */\n' +
+                    opts.indentation + _.camelCase(className) + ': \'' + className + '\',\n';
         });
 
-        opts.done('export classes = {\n' + inHash + '};\n');
+        opts.done('export const classes = {\n' + inHash.join('') + '};\n');
     };
 });
