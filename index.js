@@ -27,7 +27,7 @@ module.exports = postcss.plugin('postcss-generate-ts-hash', function (opts) {
             }
         });
 
-        var inHash = classes.map(function (className) {
+        var inHash = _.uniq(classes).map(function (className) {
             return opts.indentation + '/** .' + className  + ' */\n' +
                     opts.indentation + _.camelCase(className) + ': \'' + className + '\',\n';
         });
